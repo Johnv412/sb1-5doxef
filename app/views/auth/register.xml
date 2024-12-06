@@ -1,0 +1,42 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ScrollView>
+        <StackLayout class="p-6">
+            <Label text="Create Account" class="text-3xl font-bold text-center text-blue-600 mb-8"/>
+            
+            <StackLayout class="form">
+                <Label text="Email" class="text-gray-600 mb-2"/>
+                <TextField text="{{ email }}"
+                          hint="Enter your email"
+                          keyboardType="email"
+                          autocorrect="false"
+                          autocapitalizationType="none"
+                          class="input p-4 bg-white rounded-lg mb-4"/>
+                
+                <Label text="Password" class="text-gray-600 mb-2"/>
+                <TextField text="{{ password }}"
+                          hint="Enter your password"
+                          secure="true"
+                          class="input p-4 bg-white rounded-lg mb-4"/>
+                
+                <Label text="Confirm Password" class="text-gray-600 mb-2"/>
+                <TextField text="{{ confirmPassword }}"
+                          hint="Confirm your password"
+                          secure="true"
+                          class="input p-4 bg-white rounded-lg mb-6"/>
+                
+                <Button text="Create Account"
+                        tap="{{ onRegister }}"
+                        class="btn-primary mb-4"/>
+                
+                <Button text="Back to Login"
+                        tap="{{ onBackToLogin }}"
+                        class="text-blue-500"/>
+                
+                <Label text="{{ errorMessage }}"
+                       visibility="{{ errorMessage ? 'visible' : 'collapsed' }}"
+                       class="text-red-500 text-center mt-4"
+                       textWrap="true"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>

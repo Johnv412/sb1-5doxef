@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ActionBar title="Login" class="bg-blue-600 text-white"/>
+    
+    <ScrollView>
+        <StackLayout class="p-6">
+            <!-- Header -->
+            <StackLayout class="mb-8">
+                <Label text="Welcome Back!" class="text-3xl font-bold text-center text-blue-600"/>
+                <Label text="Sign in to continue learning" class="text-lg text-center text-gray-600 mt-2"/>
+            </StackLayout>
+            
+            <!-- Login Form -->
+            <GridLayout rows="auto, auto, auto, auto, auto, auto" class="form">
+                <!-- Email Field -->
+                <StackLayout row="0" class="mb-4">
+                    <Label text="Email" class="text-gray-600 mb-1 ml-1"/>
+                    <TextField text="{{ email }}" 
+                              hint="Enter your email"
+                              keyboardType="email"
+                              autocorrect="false"
+                              autocapitalizationType="none"
+                              class="input p-4 bg-white rounded-lg {{ emailError ? 'border-red-500' : '' }}"
+                              editable="{{ !isLoading }}"/>
+                    <Label text="{{ emailError }}"
+                           class="text-red-500 text-sm ml-1 mt-1"
+                           visibility="{{ emailError ? 'visible' : 'collapsed' }}"/>
+                </StackLayout>
+                
+                <!-- Password Field -->
+                <StackLayout row="1" class="mb-2">
+                    <Label text="Password" class="text-gray-600 mb-1 ml-1"/>
+                    <TextField text="{{ password }}"
+                              hint="Enter your password"
+                              secure="true"
+                              class="input p-4 bg-white rounded-lg {{ passwordError ? 'border-red-500' : '' }}"
+                              editable="{{ !isLoading }}"/>
+                    <Label text="{{ passwordError }}"
+                           class="text-red-500 text-sm ml-1 mt-1"
+                           visibility="{{ passwordError ? 'visible' : 'collapsed' }}"/>
+                </StackLayout>
+
+                <!-- Forgot Password -->
+                <Button row="2" 
+                        text="Forgot Password?"
+                        tap="{{ onForgotPassword }}"
+                        class="text-blue-500 text-right p-0 mb-4"/>
+                
+                <!-- Error Message -->
+                <StackLayout row="3" 
+                           class="mb-4"
+                           visibility="{{ errorMessage ? 'visible' : 'collapsed' }}">
+                    <Label text="{{ errorMessage }}"
+                           class="text-red-500 text-center"
+                           textWrap="true"/>
+                </StackLayout>
+                
+                <!-- Login Button -->
+                <Button row="4" 
+                        text="{{ isLoading ? 'Signing in...' : 'Sign In' }}"
+                        tap="{{ onLogin }}"
+                        isEnabled="{{ !isLoading }}"
+                        class="{{ isLoading ? 'btn-primary opacity-70' : 'btn-primary' }} mb-4"/>
+                
+                <!-- Register Link -->
+                <GridLayout row="5" columns="*, auto, *" class="mt-4">
+                    <StackLayout col="0" class="h-px bg-gray-300 my-auto"/>
+                    <Label col="1" 
+                           text="New here?" 
+                           class="text-gray-600 mx-4"/>
+                    <StackLayout col="2" class="h-px bg-gray-300 my-auto"/>
+                </GridLayout>
+                
+                <Button row="5" 
+                        text="Create an account"
+                        tap="{{ onRegister }}"
+                        isEnabled="{{ !isLoading }}"
+                        class="text-blue-500 -outline mt-4"/>
+            </GridLayout>
+            
+            <!-- Loading Indicator -->
+            <ActivityIndicator busy="{{ isLoading }}" 
+                             class="m-4"
+                             color="#3B82F6"/>
+        </StackLayout>
+    </ScrollView>
+</Page>

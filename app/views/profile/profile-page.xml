@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Profile">
+        <ActionItem ios:position="right" 
+                   android:position="actionBar" 
+                   text="Settings"
+                   tap="{{ onSettings }}"/>
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-4">
+            <!-- Profile Header -->
+            <StackLayout class="card">
+                <Label text="{{ username }}" class="text-2xl font-bold text-center"/>
+                <Label text="{{ email }}" class="text-gray-600 text-center"/>
+                
+                <GridLayout columns="*, *, *" class="mt-4">
+                    <StackLayout col="0" class="text-center">
+                        <Label text="{{ streak }}" class="text-xl font-bold text-blue-600"/>
+                        <Label text="Day Streak" class="text-sm text-gray-600"/>
+                    </StackLayout>
+                    
+                    <StackLayout col="1" class="text-center">
+                        <Label text="{{ totalPoints }}" class="text-xl font-bold text-blue-600"/>
+                        <Label text="Points" class="text-sm text-gray-600"/>
+                    </StackLayout>
+                    
+                    <StackLayout col="2" class="text-center">
+                        <Label text="{{ rank }}" class="text-xl font-bold text-blue-600"/>
+                        <Label text="Rank" class="text-sm text-gray-600"/>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+
+            <!-- Progress -->
+            <Label text="Progress" class="text-lg font-bold mt-4 mb-2"/>
+            <StackLayout class="card">
+                <GridLayout columns="*, auto">
+                    <Label col="0" text="Level {{ level }}" class="font-bold"/>
+                    <Label col="1" text="{{ xpProgress }}" class="text-blue-500"/>
+                </GridLayout>
+                <StackLayout class="h-2 bg-gray-200 rounded-full mt-2">
+                    <StackLayout class="h-2 bg-blue-500 rounded-full" width="{{ xpPercentage + '%' }}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Achievements -->
+            <Label text="Recent Achievements" class="text-lg font-bold mt-4 mb-2"/>
+            <GridLayout class="card" rows="auto" columns="*, *, *">
+                <Repeater items="{{ recentAchievements }}">
+                    <Repeater.itemTemplate>
+                        <StackLayout class="text-center p-2">
+                            <Label text="{{ icon }}" class="text-2xl"/>
+                            <Label text="{{ title }}" class="text-sm font-bold"/>
+                            <Label text="{{ date }}" class="text-xs text-gray-500"/>
+                        </StackLayout>
+                    </Repeater.itemTemplate>
+                </Repeater>
+            </GridLayout>
+
+            <!-- Statistics -->
+            <Label text="Statistics" class="text-lg font-bold mt-4 mb-2"/>
+            <GridLayout class="card" rows="auto, auto, auto" columns="*, auto">
+                <Label col="0" row="0" text="Lessons Completed" class="text-gray-600"/>
+                <Label col="1" row="0" text="{{ lessonsCompleted }}" class="font-bold"/>
+                
+                <Label col="0" row="1" text="Exercises Completed" class="text-gray-600"/>
+                <Label col="1" row="1" text="{{ exercisesCompleted }}" class="font-bold"/>
+                
+                <Label col="0" row="2" text="Time Spent Learning" class="text-gray-600"/>
+                <Label col="1" row="2" text="{{ timeSpent }}" class="font-bold"/>
+            </GridLayout>
+
+            <!-- Actions -->
+            <Button text="Share Progress" tap="{{ onShareProgress }}" class="btn-primary mt-4"/>
+            <Button text="View All Achievements" tap="{{ onViewAchievements }}" class="btn-outline mt-2"/>
+            <Button text="Sign Out" tap="{{ onSignOut }}" class="btn-outline text-red-500 mt-2"/>
+        </StackLayout>
+    </ScrollView>
+</Page>

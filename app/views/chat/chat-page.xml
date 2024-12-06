@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ActionBar title="Community Chat" class="bg-blue-600 text-white"/>
+    
+    <GridLayout rows="*, auto">
+        <ListView row="0" items="{{ messages }}" class="chat-list">
+            <ListView.itemTemplate>
+                <GridLayout columns="*" class="p-2">
+                    <StackLayout class="{{ userId === $parent.currentUserId ? 'ml-auto bg-blue-500 text-white' : 'mr-auto bg-white' }} p-3 rounded-lg max-w-3/4">
+                        <Label text="{{ username }}" class="text-xs {{ userId === $parent.currentUserId ? 'text-blue-100' : 'text-gray-500' }}"/>
+                        <Label text="{{ message }}" textWrap="true" class="text-sm"/>
+                        <Label text="{{ timestamp }}" class="text-xs {{ userId === $parent.currentUserId ? 'text-blue-100' : 'text-gray-500' }}"/>
+                    </StackLayout>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <GridLayout row="1" columns="*, auto" class="p-2 bg-white">
+            <TextField col="0" 
+                      text="{{ messageText }}" 
+                      hint="Type a message..." 
+                      class="input p-2"/>
+            <Button col="1" 
+                    text="Send" 
+                    tap="{{ onSendMessage }}"
+                    class="btn-primary ml-2"/>
+        </GridLayout>
+    </GridLayout>
+</Page>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Practice">
+        <ActionItem ios:position="right" android:position="actionBar">
+            <Label text="{{ points + ' 🌟' }}" class="text-lg font-bold"/>
+        </ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="auto, *">
+        <!-- Exercise Types -->
+        <ScrollView row="0" orientation="horizontal" class="bg-white">
+            <StackLayout orientation="horizontal" class="p-2">
+                <Button text="All" 
+                        tap="{{ onTypeTap }}" 
+                        class="{{ selectedType === 'all' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Vocabulary" 
+                        tap="{{ onTypeTap }}" 
+                        class="{{ selectedType === 'vocabulary' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Grammar" 
+                        tap="{{ onTypeTap }}" 
+                        class="{{ selectedType === 'grammar' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Pronunciation" 
+                        tap="{{ onTypeTap }}" 
+                        class="{{ selectedType === 'pronunciation' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Exercise List -->
+        <ListView row="1" items="{{ filteredExercises }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *, auto" class="p-4 bg-white border-b border-gray-200">
+                    <!-- Exercise Icon -->
+                    <Label col="0" 
+                           text="{{ icon }}" 
+                           class="text-2xl mr-4"/>
+                    
+                    <!-- Exercise Info -->
+                    <StackLayout col="1">
+                        <Label text="{{ title }}" class="text-lg font-bold"/>
+                        <Label text="{{ description }}" class="text-gray-600" textWrap="true"/>
+                        <GridLayout columns="auto, auto" class="mt-1">
+                            <Label col="0" 
+                                   text="{{ difficulty }}" 
+                                   class="{{ 
+                                       difficulty === 'Easy' ? 'text-green-500' : 
+                                       difficulty === 'Medium' ? 'text-yellow-500' : 
+                                       'text-red-500' 
+                                   }} text-sm"/>
+                            <Label col="1" 
+                                   text="{{ points + ' points' }}" 
+                                   class="text-blue-500 text-sm ml-2"/>
+                        </GridLayout>
+                    </StackLayout>
+
+                    <!-- Start Button -->
+                    <Button col="2" 
+                            text="Start" 
+                            tap="{{ $parent.onExerciseTap }}"
+                            class="btn-primary"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator rowSpan="2" 
+                          busy="{{ isLoading }}" 
+                          class="m-4"/>
+    </GridLayout>
+</Page>

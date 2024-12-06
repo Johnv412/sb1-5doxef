@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ActionBar title="Practice" class="bg-blue-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back"/>
+    </ActionBar>
+
+    <GridLayout>
+        <!-- Flashcard -->
+        <GridLayout rows="*, auto" class="m-4" visibility="{{ hasCards ? 'visible' : 'collapsed' }}">
+            <!-- Card -->
+            <GridLayout row="0" class="bg-white rounded-xl shadow-md m-4">
+                <GridLayout rows="*, auto" class="p-6">
+                    <!-- Word -->
+                    <StackLayout row="0" class="text-center">
+                        <Label text="{{ currentCard.word }}" 
+                               class="text-3xl font-bold mb-4"/>
+                        <Label text="{{ isFlipped ? currentCard.definition : '???' }}" 
+                               class="text-xl text-gray-600"
+                               textWrap="true"/>
+                        <Label text="{{ isFlipped ? currentCard.example : 'Tap to reveal' }}"
+                               class="text-gray-500 mt-4"
+                               textWrap="true"/>
+                    </StackLayout>
+
+                    <!-- Progress -->
+                    <StackLayout row="1" class="mt-4">
+                        <GridLayout columns="auto, *" class="mb-2">
+                            <Label col="0" 
+                                   text="{{ currentIndex + 1 + '/' + totalCards }}"
+                                   class="text-gray-600"/>
+                            <StackLayout col="1" class="progress-bar ml-4">
+                                <StackLayout class="progress-value" 
+                                           width="{{ (currentIndex + 1) / totalCards * 100 + '%' }}"/>
+                            </StackLayout>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+            </GridLayout>
+
+            <!-- Buttons -->
+            <GridLayout row="1" columns="*, *" class="mx-4">
+                <Button col="0" 
+                        text="Incorrect" 
+                        tap="{{ onIncorrect }}"
+                        class="btn-outline text-red-500 mr-2"
+                        visibility="{{ isFlipped ? 'visible' : 'collapsed' }}"/>
+                <Button col="1" 
+                        text="Correct" 
+                        tap="{{ onCorrect }}"
+                        class="btn-primary ml-2"
+                        visibility="{{ isFlipped ? 'visible' : 'collapsed' }}"/>
+                <Button colSpan="2" 
+                        text="Reveal" 
+                        tap="{{ onReveal }}"
+                        class="btn-primary"
+                        visibility="{{ isFlipped ? 'collapsed' : 'visible' }}"/>
+            </GridLayout>
+        </GridLayout>
+
+        <!-- Empty State -->
+        <StackLayout class="text-center p-8" visibility="{{ hasCards ? 'collapsed' : 'visible' }}">
+            <Label text="No cards due for review" class="text-xl font-bold text-gray-600"/>
+            <Label text="Come back later!" class="text-gray-500 mt-2"/>
+        </StackLayout>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator busy="{{ isLoading }}" 
+                          class="m-4"
+                          color="#3B82F6"/>
+    </GridLayout>
+</Page>

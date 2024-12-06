@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-black">
+    <ActionBar title="{{ title }}" class="bg-transparent text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back"/>
+    </ActionBar>
+
+    <GridLayout rows="*, auto">
+        <MediaPlayer 
+            row="0"
+            src="{{ videoUrl }}"
+            autoplay="true"
+            controls="true"
+            finished="{{ onVideoComplete }}"
+            class="w-full h-full"/>
+
+        <StackLayout row="1" 
+                     class="bg-white p-4"
+                     visibility="{{ showQuiz ? 'visible' : 'collapsed' }}">
+            <Label text="Quiz Time!" class="text-xl font-bold mb-4"/>
+            <Label text="{{ currentQuiz.question }}" class="text-lg mb-4" textWrap="true"/>
+            
+            <Repeater items="{{ currentQuiz.options }}">
+                <Repeater.itemTemplate>
+                    <Button text="{{ $value }}"
+                           tap="{{ $parent.onAnswerSelected }}"
+                           class="btn-primary mb-2"/>
+                </Repeater.itemTemplate>
+            </Repeater>
+        </StackLayout>
+    </GridLayout>
+</Page>

@@ -1,0 +1,25 @@
+{
+  "name": "language-learning-app",
+  "version": "1.0.0",
+  "main": "app/app.ts",
+  "scripts": {
+    "postinstall": "node ./setup.js",
+    "preview": "setup-nativescript-stackblitz && ns preview",
+    "android": "ns run android",
+    "ios": "ns run ios",
+    "clean": "ns clean"
+  },
+  "dependencies": {
+    "@nativescript/core": "~8.6.0",
+    "@nativescript/theme": "~3.0.2"
+  },
+  "devDependencies": {
+    "@nativescript/android": "8.6.2",
+    "@nativescript/ios": "8.6.1",
+    "@nativescript/preview-cli": "^1.0.14",
+    "@nativescript/stackblitz": "0.0.8",
+    "@nativescript/types": "~8.6.0",
+    "@nativescript/webpack": "~5.0.18",
+    "typescript": "~5.0.0"
+  }
+}

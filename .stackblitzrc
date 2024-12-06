@@ -1,0 +1,7 @@
+{
+  "installDependencies": true,
+  "startCommand": "npm run preview",
+  "env": {
+    "NODE_VERSION": "18"
+  }
+}

@@ -1,0 +1,31 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ActionBar title="Learn English" class="bg-blue-600 text-white">
+        <ActionItem ios.position="right" android.position="actionBar">
+            <Label text="{{ userPoints }}" class="text-lg font-bold mr-2"/>
+            <Image src="~/assets/coin.png" width="24" height="24"/>
+        </ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="auto, *">
+        <StackLayout row="0" class="p-4">
+            <Label text="Daily Goal" class="text-lg font-bold mb-2"/>
+            <StackLayout class="progress-bar">
+                <StackLayout class="progress-value" width="{{ dailyProgress }}"/>
+            </StackLayout>
+        </StackLayout>
+
+        <ListView row="1" items="{{ lessons }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *, auto" class="lesson-card">
+                    <Image col="0" src="{{ thumbnail }}" width="80" height="80" class="rounded-lg"/>
+                    <StackLayout col="1" class="ml-4">
+                        <Label text="{{ title }}" class="text-lg font-bold"/>
+                        <Label text="{{ description }}" textWrap="true" class="text-gray-600"/>
+                        <Label text="{{ duration }}" class="text-sm text-gray-500"/>
+                    </StackLayout>
+                    <Label col="2" text="{{ points }}" class="text-blue-600 font-bold"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </GridLayout>
+</Page>

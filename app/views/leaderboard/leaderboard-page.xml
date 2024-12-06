@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ActionBar title="Leaderboard" class="bg-blue-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back"/>
+    </ActionBar>
+
+    <GridLayout rows="auto, *">
+        <!-- User's Rank Card -->
+        <StackLayout row="0" class="bg-white m-4 p-4 rounded-xl shadow-md">
+            <Label text="Your Ranking" class="text-lg text-gray-600 mb-2"/>
+            <GridLayout columns="auto, *, auto" class="mb-2">
+                <Label col="0" text="{{ userRank }}" class="text-2xl font-bold text-blue-600"/>
+                <Label col="1" text="{{ userName }}" class="text-lg ml-4"/>
+                <Label col="2" text="{{ userPoints + ' pts' }}" class="text-lg text-blue-600"/>
+            </GridLayout>
+        </StackLayout>
+
+        <!-- Leaderboard List -->
+        <ListView row="1" items="{{ leaderboard }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, auto, *, auto" class="p-4 bg-white border-b border-gray-200">
+                    <!-- Rank -->
+                    <Label col="0" 
+                           text="{{ rank }}" 
+                           class="{{ rank <= 3 ? 'text-xl font-bold text-blue-600' : 'text-lg text-gray-600' }}"/>
+                    
+                    <!-- Medal for top 3 -->
+                    <Label col="1" 
+                           text="{{ rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '' }}"
+                           class="text-xl ml-2"
+                           visibility="{{ rank <= 3 ? 'visible' : 'collapsed' }}"/>
+                    
+                    <!-- Name -->
+                    <Label col="2" 
+                           text="{{ name }}" 
+                           class="text-lg ml-4"/>
+                    
+                    <!-- Points -->
+                    <Label col="3" 
+                           text="{{ points + ' pts' }}" 
+                           class="text-lg text-blue-600"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator rowSpan="2" 
+                          busy="{{ isLoading }}" 
+                          class="m-4"
+                          color="#3B82F6"/>
+    </GridLayout>
+</Page>

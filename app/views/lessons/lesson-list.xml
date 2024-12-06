@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ActionBar title="Lessons" class="bg-blue-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back"/>
+    </ActionBar>
+
+    <GridLayout rows="auto, *">
+        <!-- Filters -->
+        <ScrollView row="0" orientation="horizontal" class="bg-white">
+            <StackLayout orientation="horizontal" class="p-2">
+                <Button text="All" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'all' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="In Progress" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'inProgress' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Completed" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'completed' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Recommended" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'recommended' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Lessons List -->
+        <ListView row="1" items="{{ filteredLessons }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *, auto" rows="auto, auto, auto" class="p-4 bg-white border-b border-gray-200">
+                    <!-- Lesson Icon -->
+                    <Label col="0" rowSpan="2" 
+                           text="{{ type === 'video' ? '🎥' : type === 'audio' ? '🎧' : type === 'interactive' ? '🎮' : '📖' }}"
+                           class="text-2xl mr-4"/>
+                    
+                    <!-- Lesson Info -->
+                    <Label col="1" row="0" 
+                           text="{{ title }}" 
+                           class="text-lg font-bold"/>
+                    <Label col="1" row="1" 
+                           text="{{ description }}" 
+                           class="text-gray-600"
+                           textWrap="true"/>
+                    
+                    <!-- Progress Info -->
+                    <GridLayout col="1" row="2" columns="*, auto" class="mt-2">
+                        <StackLayout col="0" class="progress-bar">
+                            <StackLayout class="progress-value" width="{{ progress + '%' }}"/>
+                        </StackLayout>
+                        <Label col="1" 
+                               text="{{ duration + ' min' }}" 
+                               class="text-sm text-gray-500 ml-2"/>
+                    </GridLayout>
+
+                    <!-- Start/Continue Button -->
+                    <Button col="2" rowSpan="3" 
+                            text="{{ isCompleted ? '✓ Review' : progress > 0 ? 'Continue' : 'Start' }}" 
+                            tap="{{ $parent.onLessonTap }}"
+                            class="{{ isCompleted ? 'btn-outline text-green-500' : 'btn-primary' }}"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator rowSpan="2" 
+                          busy="{{ isLoading }}" 
+                          class="m-4"
+                          color="#3B82F6"/>
+    </GridLayout>
+</Page>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ActionBar title="Rewards Store" class="bg-blue-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back"/>
+        <ActionItem position="right">
+            <GridLayout columns="auto, auto" class="mr-4">
+                <Label col="0" text="{{ userPoints }}" class="text-lg font-bold"/>
+                <Label col="1" text=" 🪙" class="text-lg"/>
+            </GridLayout>
+        </ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="auto, *">
+        <!-- Categories -->
+        <ScrollView row="0" orientation="horizontal" class="bg-white">
+            <StackLayout orientation="horizontal" class="p-2">
+                <Button text="All" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'all' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Content" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'content' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Features" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'feature' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Cosmetic" 
+                        tap="{{ onFilterTap }}" 
+                        class="{{ selectedFilter === 'cosmetic' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Rewards List -->
+        <ListView row="1" items="{{ filteredRewards }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *, auto" rows="auto, auto" class="p-4 bg-white border-b border-gray-200">
+                    <!-- Reward Icon -->
+                    <Image col="0" rowSpan="2"
+                           src="{{ icon }}" 
+                           width="48" 
+                           height="48" 
+                           class="{{ canAfford ? '' : 'opacity-50' }}"/>
+                    
+                    <!-- Reward Info -->
+                    <Label col="1" row="0"
+                           text="{{ name }}" 
+                           class="{{ canAfford ? 'text-lg font-bold' : 'text-lg text-gray-500' }}"/>
+                    <Label col="1" row="1"
+                           text="{{ description }}" 
+                           class="{{ canAfford ? 'text-gray-600' : 'text-gray-400' }}"
+                           textWrap="true"/>
+                    
+                    <!-- Cost -->
+                    <Button col="2" rowSpan="2"
+                            text="{{ cost + ' 🪙' }}"
+                            tap="{{ $parent.onRedeemTap }}"
+                            class="{{ canAfford ? 'btn-primary' : 'btn-primary opacity-50' }}"
+                            isEnabled="{{ canAfford }}"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator rowSpan="2" 
+                          busy="{{ isLoading }}" 
+                          class="m-4"
+                          color="#3B82F6"/>
+    </GridLayout>
+</Page>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="{{ lesson.title }}">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back"/>
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-4">
+            <!-- Lesson Header -->
+            <GridLayout columns="auto, *" class="mb-4">
+                <Label col="0" text="{{ lesson.icon }}" class="text-4xl mr-4"/>
+                <StackLayout col="1">
+                    <Label text="{{ lesson.title }}" class="text-xl font-bold"/>
+                    <Label text="{{ lesson.description }}" class="text-gray-600" textWrap="true"/>
+                </StackLayout>
+            </GridLayout>
+
+            <!-- Lesson Info -->
+            <GridLayout columns="auto, *" rows="auto, auto, auto" class="card mb-4">
+                <Label col="0" row="0" text="Duration:" class="text-gray-600"/>
+                <Label col="1" row="0" text="{{ lesson.duration }}" class="font-bold"/>
+                
+                <Label col="0" row="1" text="Level:" class="text-gray-600"/>
+                <Label col="1" row="1" text="{{ lesson.level }}" class="font-bold"/>
+                
+                <Label col="0" row="2" text="Category:" class="text-gray-600"/>
+                <Label col="1" row="2" text="{{ lesson.category }}" class="font-bold"/>
+            </GridLayout>
+
+            <!-- Lesson Content Preview -->
+            <Label text="What you'll learn:" class="text-lg font-bold mb-2"/>
+            <ListView items="{{ lesson.objectives }}" class="mb-4">
+                <ListView.itemTemplate>
+                    <GridLayout columns="auto, *" class="p-2">
+                        <Label col="0" text="✓" class="text-green-500 mr-2"/>
+                        <Label col="1" text="{{ $value }}" textWrap="true"/>
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Start Button -->
+            <Button text="{{ lesson.isCompleted ? 'Review Lesson' : 'Start Lesson' }}"
+                    tap="{{ onStartLesson }}"
+                    class="btn-primary"/>
+        </StackLayout>
+    </ScrollView>
+</Page>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Lessons">
+        <ActionItem ios:position="right" android:position="actionBar" tap="{{ onSearch }}">
+            <Label text="🔍" class="text-lg"/>
+        </ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="auto, auto, *">
+        <!-- Categories -->
+        <ScrollView row="0" orientation="horizontal" class="bg-white">
+            <StackLayout orientation="horizontal" class="p-2">
+                <Button text="All" 
+                        tap="{{ onCategoryTap }}" 
+                        class="{{ selectedCategory === 'all' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Grammar" 
+                        tap="{{ onCategoryTap }}" 
+                        class="{{ selectedCategory === 'grammar' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Vocabulary" 
+                        tap="{{ onCategoryTap }}" 
+                        class="{{ selectedCategory === 'vocabulary' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+                <Button text="Conversation" 
+                        tap="{{ onCategoryTap }}" 
+                        class="{{ selectedCategory === 'conversation' ? 'btn-primary' : 'btn-outline' }} mx-1"/>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Level Filter -->
+        <GridLayout row="1" columns="*, *, *" class="bg-white border-t border-b border-gray-200">
+            <Label col="0" 
+                   text="Beginner" 
+                   tap="{{ onLevelTap }}"
+                   class="{{ selectedLevel === 'beginner' ? 'tab-item-active' : 'tab-item' }}"/>
+            <Label col="1" 
+                   text="Intermediate" 
+                   tap="{{ onLevelTap }}"
+                   class="{{ selectedLevel === 'intermediate' ? 'tab-item-active' : 'tab-item' }}"/>
+            <Label col="2" 
+                   text="Advanced" 
+                   tap="{{ onLevelTap }}"
+                   class="{{ selectedLevel === 'advanced' ? 'tab-item-active' : 'tab-item' }}"/>
+        </GridLayout>
+
+        <!-- Lessons List -->
+        <ListView row="2" items="{{ filteredLessons }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *, auto" rows="auto, auto, auto" class="p-4 bg-white border-b border-gray-200">
+                    <!-- Lesson Icon -->
+                    <Label col="0" rowSpan="2" 
+                           text="{{ icon }}" 
+                           class="text-2xl mr-4"/>
+                    
+                    <!-- Lesson Info -->
+                    <Label col="1" row="0" 
+                           text="{{ title }}" 
+                           class="text-lg font-bold"/>
+                    <Label col="1" row="1" 
+                           text="{{ description }}" 
+                           class="text-gray-600"
+                           textWrap="true"/>
+                    
+                    <!-- Progress Info -->
+                    <GridLayout col="1" row="2" columns="*, auto" class="mt-2">
+                        <StackLayout col="0" class="h-1 bg-gray-200 rounded-full">
+                            <StackLayout class="h-1 bg-blue-500 rounded-full" width="{{ progress + '%' }}"/>
+                        </StackLayout>
+                        <Label col="1" 
+                               text="{{ duration }}" 
+                               class="text-sm text-gray-500 ml-2"/>
+                    </GridLayout>
+
+                    <!-- Start Button -->
+                    <Button col="2" rowSpan="3" 
+                            text="{{ isCompleted ? '✓ Review' : progress > 0 ? 'Continue' : 'Start' }}" 
+                            tap="{{ $parent.onLessonTap }}"
+                            class="{{ isCompleted ? 'btn-outline text-green-500' : 'btn-primary' }}"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator rowSpan="3" 
+                          busy="{{ isLoading }}" 
+                          class="m-4"/>
+    </GridLayout>
+</Page>

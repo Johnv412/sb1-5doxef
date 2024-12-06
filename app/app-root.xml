@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabView androidTabsPosition="bottom">
+    <TabViewItem title="Home" ios:iconSource="res://home" android:iconSource="res://home">
+        <Frame defaultPage="views/home/home-page" />
+    </TabViewItem>
+    <TabViewItem title="Lessons" ios:iconSource="res://book" android:iconSource="res://book">
+        <Frame defaultPage="views/lessons/lessons-page" />
+    </TabViewItem>
+    <TabViewItem title="Practice" ios:iconSource="res://practice" android:iconSource="res://practice">
+        <Frame defaultPage="views/practice/practice-page" />
+    </TabViewItem>
+    <TabViewItem title="Profile" ios:iconSource="res://profile" android:iconSource="res://profile">
+        <Frame defaultPage="views/profile/profile-page" />
+    </TabViewItem>
+</TabView>

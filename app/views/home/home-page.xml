@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Language Learning">
+        <ActionItem ios:position="right" android:position="actionBar">
+            <Label text="{{ streakCount + '🔥' }}" class="text-lg font-bold mr-2"/>
+        </ActionItem>
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-4">
+            <!-- Daily Goal -->
+            <GridLayout rows="auto, auto" columns="*, auto" class="card mb-4">
+                <Label row="0" col="0" text="Daily Goal" class="text-lg font-bold"/>
+                <Label row="0" col="1" text="{{ progressText }}" class="text-blue-500"/>
+                <StackLayout row="1" colSpan="2" class="h-2 bg-gray-200 rounded-full mt-2">
+                    <StackLayout class="h-2 bg-blue-500 rounded-full" width="{{ progress + '%' }}"/>
+                </StackLayout>
+            </GridLayout>
+
+            <!-- Quick Actions -->
+            <GridLayout columns="*, *" rows="auto" class="mb-4">
+                <StackLayout col="0" class="card mr-1" tap="{{ onStartLesson }}">
+                    <Label text="📚" class="text-2xl text-center"/>
+                    <Label text="Start Lesson" class="text-center font-bold"/>
+                </StackLayout>
+                <StackLayout col="1" class="card ml-1" tap="{{ onPractice }}">
+                    <Label text="✏️" class="text-2xl text-center"/>
+                    <Label text="Practice" class="text-center font-bold"/>
+                </StackLayout>
+            </GridLayout>
+
+            <!-- Continue Learning -->
+            <Label text="Continue Learning" class="text-lg font-bold mb-2"/>
+            <ListView items="{{ continueLessons }}" class="mb-4">
+                <ListView.itemTemplate>
+                    <StackLayout class="card">
+                        <Label text="{{ title }}" class="font-bold"/>
+                        <Label text="{{ description }}" class="text-gray-600"/>
+                        <GridLayout columns="*, auto">
+                            <StackLayout col="0" class="h-1 bg-gray-200 rounded-full my-2">
+                                <StackLayout class="h-1 bg-blue-500 rounded-full" width="{{ progress + '%' }}"/>
+                            </StackLayout>
+                            <Label col="1" text="{{ progress + '%' }}" class="text-blue-500 ml-2"/>
+                        </GridLayout>
+                    </StackLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Daily Challenge -->
+            <StackLayout class="card" tap="{{ onDailyChallenge }}">
+                <GridLayout columns="auto, *">
+                    <Label col="0" text="🎯" class="text-2xl mr-2"/>
+                    <StackLayout col="1">
+                        <Label text="Daily Challenge" class="font-bold"/>
+                        <Label text="{{ dailyChallengeText }}" class="text-gray-600"/>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>

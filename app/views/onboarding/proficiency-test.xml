@@ -1,0 +1,20 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="bg-blue-50">
+    <ScrollView>
+        <StackLayout class="p-6">
+            <Label text="Let's find your level" class="text-2xl font-bold text-center text-blue-600 mb-4"/>
+            <Label text="{{ currentQuestion.question }}" class="text-xl text-center mb-8" textWrap="true"/>
+            
+            <Repeater items="{{ currentQuestion.options }}">
+                <Repeater.itemTemplate>
+                    <Button text="{{ $value }}" 
+                           tap="{{ $parent.onAnswerSelected }}" 
+                           class="btn-primary mb-4"/>
+                </Repeater.itemTemplate>
+            </Repeater>
+
+            <StackLayout class="progress-bar mt-8">
+                <StackLayout class="progress-value" width="{{ progressWidth }}"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>
